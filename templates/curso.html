@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ curso.nombre }} - Portafolio Docente</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>{{ curso.nombre }}</h1>
+            <nav>
+                <a href="{{ url_for('perfil_docente', docente_id=session['user_id']) }}" class="back-btn">Volver al perfil</a>
+                <a href="{{ url_for('logout') }}" class="logout-btn">Cerrar Sesión</a>
+            </nav>
+        </div>
+    </header>
+    
+    <main class="container">
+        <section class="curso-section">
+            <h2>Materiales del Curso</h2>
+            
+            <div class="materiales-form">
+                <h3>Subir nuevo material</h3>
+                <form method="POST" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label>Tipo de material:</label>
+                        <select name="tipo_material" required>
+                            <option value="silabo">Sílabo</option>
+                            <option value="plan_estudio">Plan de Estudio</option>
+                            <option value="presentacion">Presentación</option>
+                            <option value="material_apoyo">Material de Apoyo</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Archivo (PDF):</label>
+                        <input type="file" name="archivo" accept=".pdf" required>
+                    </div>
+                    
+                    <button type="submit" class="btn-submit">Subir Material</button>
+                </form>
+            </div>
+            
+            <div class="materiales-list">
+                <h3>Materiales subidos</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Tipo</th>
+                            <th>Archivo</th>
+                            <th>Fecha</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Los materiales se cargarán dinámicamente -->
+                        <tr>
+                            <td>Sílabo</td>
+                            <td><a href="#" target="_blank">Ver archivo</a></td>
+                            <td>2023-10-15</td>
+                            <td>
+                                <button class="btn-delete">Eliminar</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <div class="container">
+            <p>Universidad Nacional San Antonio Abad del Cusco</p>
+        </div>
+    </footer>
+</body>
+</html>

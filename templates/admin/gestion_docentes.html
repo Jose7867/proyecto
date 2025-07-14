@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Docentes</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+</head>
+<body>
+    <header class="admin-header">
+        <div class="container">
+            <h1>Gestión de Docentes</h1>
+            <nav>
+                <a href="{{ url_for('admin_dashboard') }}">Dashboard</a>
+                <a href="{{ url_for('logout') }}">Cerrar Sesión</a>
+            </nav>
+        </div>
+    </header>
+    
+    <main class="container">
+        <div class="admin-actions">
+            <a href="{{ url_for('agregar_docente') }}" class="btn-add">Agregar Docente</a>
+        </div>
+        
+        <table class="docentes-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Email</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for docente in docentes %}
+                <tr>
+                    <td>{{ docente.id }}</td>
+                    <td>{{ docente.nombre }}</td>
+                    <td>{{ docente.email }}</td>
+                    <td class="actions">
+                        <a href="#" class="btn-edit">Editar</a>
+                        <a href="#" class="btn-delete">Eliminar</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </main>
+    
+    <footer class="admin-footer">
+        <div class="container">
+            <p>Sistema Portafolio Docente UNSAC &copy; 2023</p>
+        </div>
+    </footer>
+</body>
+</html>

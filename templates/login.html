@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Portafolio Docente</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="login-container">
+        <h1>Iniciar Sesión</h1>
+        
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        
+        <form action="{{ url_for('login') }}" method="POST">
+            <div class="user-type-selector">
+                <input type="radio" id="docente" name="user_type" value="docente" checked>
+                <label for="docente">Docente</label>
+                
+                <input type="radio" id="admin" name="user_type" value="admin">
+                <label for="admin">Administrador</label>
+            </div>
+            
+            <div class="form-group">
+                <label for="email">Correo Institucional:</label>
+                <input type="email" id="email" name="email" required placeholder="usuario@unsaac.edu.pe">
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Contraseña:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            
+            <button type="submit" class="btn-login">Ingresar</button>
+        </form>
+    </div>
+</body>
+</html>
