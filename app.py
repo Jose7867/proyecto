@@ -120,7 +120,6 @@ def curso(docente_id, curso_id):
     
     return render_template('curso.html', curso=curso)
 
-
 # Panel del administrador
 @app.route('/admin/dashboard')
 def admin_dashboard():
