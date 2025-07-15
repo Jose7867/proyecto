@@ -120,11 +120,8 @@ def curso(docente_id, curso_id):
     
     return render_template('curso.html', curso=curso)
 
-<<<<<<< HEAD
-# Panel de administración
-=======
+
 # Panel del administrador
->>>>>>> b0f9e33904dc59c6f8288b15044251410de9a5d6
 @app.route('/admin/dashboard')
 def admin_dashboard():
     if 'user_type' not in session or session['user_type'] != 'admin':
