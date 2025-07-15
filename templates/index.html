@@ -1,30 +1,120 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portafolio Docente UNSAC</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portafolio Docente UNSAAC</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f5f5f5;
+      color: #333;
+
+      /* Imagen de fondo centrada y sutil */
+      background-image: url("assets/img/logo-unsaac.png");
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 300px;
+      background-attachment: fixed;
+      opacity: 1;
+    }
+
+    .overlay {
+      background-color: rgba(255, 255, 255, 0.9);
+      min-height: 100vh;
+    }
+
+    .header {
+      background-color: #800000;
+      color: white;
+      padding: 1.5rem 1rem;
+      text-align: center;
+    }
+
+    .header-title {
+      margin: 0;
+      font-size: 1.8rem;
+      font-weight: bold;
+    }
+
+    .main-content {
+      max-width: 700px;
+      margin: 3rem auto;
+      padding: 2rem;
+      background-color: white;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      border-top: 5px solid #800000;
+    }
+
+    .main-content h2 {
+      color: #800000;
+      margin-bottom: 1rem;
+    }
+
+    .main-content p {
+      color: #444;
+      font-size: 1rem;
+      line-height: 1.5;
+    }
+
+    .login-btn {
+      margin-top: 2rem;
+      padding: 0.8rem 2rem;
+      font-size: 1rem;
+      background-color: #800000;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .login-btn:hover {
+      background-color: #a31f1f;
+    }
+
+    .footer {
+      background-color: #800000;
+      color: white;
+      text-align: center;
+      padding: 1rem;
+      margin-top: 3rem;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 600px) {
+      .main-content {
+        margin: 1.5rem;
+        padding: 1.5rem;
+      }
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <div class="container">
-            <h1>Sistema de Portafolio Docente UNSAC</h1>
-        </div>
+  <!-- Capa blanca semitransparente para mayor legibilidad -->
+  <div class="overlay">
+    <header class="header">
+      <h1 class="header-title">Sistema de Portafolio Docente - UNSAAC</h1>
     </header>
-    
-    <main class="container">
-        <div class="welcome-section">
-            <h2>Bienvenido al Sistema de Portafolio Docente</h2>
-            <p>Gestiona tus documentos académicos y materiales de cursos de manera eficiente.</p>
-            <a href="{{ url_for('login') }}" class="btn-login">Iniciar Sesión</a>
-        </div>
+
+    <main class="main-content">
+      <h2>Bienvenido al Sistema de Portafolio Docente</h2>
+      <p>
+        Gestiona tus documentos académicos y materiales de cursos de manera eficiente en la <br />
+        Universidad Nacional de San Antonio Abad del Cusco.
+      </p>
+      <a href="login.html">
+        <button class="login-btn">Iniciar Sesión</button>
+      </a>
     </main>
-    
-    <footer>
-        <div class="container">
-            <p>Universidad Nacional San Antonio Abad del Cusco</p>
-        </div>
+
+    <footer class="footer">
+      Universidad Nacional de San Antonio Abad del Cusco - UNSAAC
     </footer>
+  </div>
 </body>
 </html>

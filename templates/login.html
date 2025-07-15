@@ -1,44 +1,203 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Portafolio Docente</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Login - Sistema de Portafolios</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body, html {
+      margin: 0; padding: 0; height: 100%;
+      background: #f5f5f5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      display: flex;
+      width: 900px;
+      max-width: 95vw;
+      height: 500px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.15);
+      overflow: hidden;
+    }
+
+    .left-side, .right-side {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
+    }
+
+    .left-side {
+      background: #800000;
+      color: white;
+      position: relative;
+    }
+
+    .left-side img {
+      max-width: 80%;
+      max-height: 80%;
+      object-fit: contain;
+      filter: drop-shadow(0 0 5px rgba(0,0,0,0.5));
+    }
+
+    .right-side {
+      background: white;
+    }
+
+    .login-container {
+      width: 100%;
+      max-width: 350px;
+    }
+
+    .login-container h2 {
+      text-align: center;
+      margin-bottom: 1.5rem;
+      color: #800000;
+    }
+
+    .role-buttons {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 1rem;
+    }
+
+    .role-btn {
+      flex: 1;
+      padding: 0.75rem;
+      background-color: #e0e0e0;
+      color: #333;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      text-align: center;
+    }
+
+    .role-btn.active {
+      background-color: #800000;
+      color: white;
+    }
+
+    .role-btn:hover:not(.active) {
+      background-color: #d0d0d0;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      color: #333;
+    }
+
+    input {
+      width: 100%;
+      padding: 0.75rem;
+      margin-bottom: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+
+    button[type="submit"] {
+      width: 100%;
+      padding: 0.75rem;
+      background-color: #800000;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+      font-size: 1rem;
+    }
+
+    button[type="submit"]:hover {
+      background-color: #a31f1f;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 1rem;
+      font-size: 0.9rem;
+      color: #666;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+        height: auto;
+      }
+      .left-side, .right-side {
+        width: 100%;
+        max-width: 100%;
+        padding: 1.5rem;
+      }
+      .left-side img {
+        max-width: 50%;
+        margin: 0 auto;
+      }
+      .login-container {
+        max-width: 100%;
+      }
+    }
+  </style>
 </head>
 <body>
-    <div class="login-container">
-        <h1>Iniciar Sesión</h1>
-        
-        {% with messages = get_flashed_messages(with_categories=true) %}
-            {% if messages %}
-                {% for category, message in messages %}
-                    <div class="alert alert-{{ category }}">{{ message }}</div>
-                {% endfor %}
-            {% endif %}
-        {% endwith %}
-        
-        <form action="{{ url_for('login') }}" method="POST">
-            <div class="user-type-selector">
-                <input type="radio" id="docente" name="user_type" value="docente" checked>
-                <label for="docente">Docente</label>
-                
-                <input type="radio" id="admin" name="user_type" value="admin">
-                <label for="admin">Administrador</label>
-            </div>
-            
-            <div class="form-group">
-                <label for="email">Correo Institucional:</label>
-                <input type="email" id="email" name="email" required placeholder="usuario@unsaac.edu.pe">
-            </div>
-            
-            <div class="form-group">
-                <label for="password">Contraseña:</label>
-                <input type="password" id="password" name="password" required>
-            </div>
-            
-            <button type="submit" class="btn-login">Ingresar</button>
-        </form>
+  <div class="container">
+    <div class="left-side">
+      <img src="assets/img/logo-unsaac.png" alt="Logo UNSAAC" />
     </div>
+    <div class="right-side">
+      <div class="login-container">
+        <h2>Iniciar Sesión</h2>
+        <form>
+          <label>Seleccionar Rol:</label>
+          <div class="role-buttons">
+            <button type="button" class="role-btn active" data-role="docente">Docente</button>
+            <button type="button" class="role-btn" data-role="administrador">Administrador</button>
+          </div>
+          <input type="hidden" id="rol" name="rol" value="docente">
+
+          <label for="email">Correo Institucional:</label>
+          <input type="email" id="email" name="email" placeholder="usuario@unsaac.edu.pe" required />
+
+          <label for="password">Contraseña:</label>
+          <input type="password" id="password" name="password" placeholder="••••••••" required />
+
+          <button type="submit">Iniciar Sesión</button>
+        </form>
+
+        <div class="footer">
+          <a href="#">¿Olvidaste tu contraseña?</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const roleButtons = document.querySelectorAll('.role-btn');
+      const roleInput = document.getElementById('rol');
+      roleButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          roleButtons.forEach(btn => btn.classList.remove('active'));
+          button.classList.add('active');
+          roleInput.value = button.dataset.role;
+        });
+      });
+    });
+  </script>
 </body>
 </html>
