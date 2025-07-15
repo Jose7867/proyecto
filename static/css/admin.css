@@ -1,13 +1,32 @@
+<<<<<<< HEAD
 /* Admin-specific styles */
 .admin-header {
     background-color: #2c3e50;
     color: white;
     padding: 15px 0;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+=======
+:root {
+    --bordo: #8B0000;
+    --dorado: #DAA520;
+    --gris-claro: #f2f2f2;
+    --texto: #2c3e50;
+    --blanco: #ffffff;
+}
+
+/* --- HEADER --- */
+.admin-header {
+    background-color: var(--bordo);
+    color: var(--blanco);
+    padding: 15px 0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+>>>>>>> b0f9e33904dc59c6f8288b15044251410de9a5d6
 }
 
 .admin-header h1 {
     margin-bottom: 10px;
+<<<<<<< HEAD
 }
 
 .admin-header nav {
@@ -17,6 +36,19 @@
 
 .admin-header nav a {
     color: white;
+=======
+    text-align: center;
+}
+
+.admin-header nav {
+    background-color: #a00000;
+    padding: 10px 0;
+    text-align: center;
+}
+
+.admin-header nav a {
+    color: var(--blanco);
+>>>>>>> b0f9e33904dc59c6f8288b15044251410de9a5d6
     text-decoration: none;
     margin: 0 15px;
     font-weight: 500;
@@ -24,6 +56,7 @@
 }
 
 .admin-header nav a:hover {
+<<<<<<< HEAD
     color: #3498db;
 }
 
@@ -50,15 +83,47 @@
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0,0,0,0.05);
     text-align: center;
+=======
+    color: var(--dorado);
+}
+
+/* --- STATS Y CARDS --- */
+.admin-stats h2,
+.quick-actions h2 {
+    color: var(--texto);
+    border-bottom: 2px solid var(--dorado);
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+.stats-grid, .actions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.stat-card, .action-card {
+    padding: 20px;
+    background-color: var(--blanco);
+    border-radius: 8px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+>>>>>>> b0f9e33904dc59c6f8288b15044251410de9a5d6
 }
 
 .stat-card h3 {
     font-size: 2.5rem;
+<<<<<<< HEAD
     color: #3498db;
+=======
+    color: var(--dorado);
+>>>>>>> b0f9e33904dc59c6f8288b15044251410de9a5d6
     margin-bottom: 10px;
 }
 
 .stat-card p {
+<<<<<<< HEAD
     color: #7f8c8d;
     font-weight: 500;
 }
@@ -112,6 +177,34 @@
     box-shadow: 0 0 10px rgba(0,0,0,0.05);
     border-radius: 8px;
     overflow: hidden;
+=======
+    color: #555;
+}
+
+.action-card {
+    text-decoration: none;
+    color: var(--texto);
+}
+
+.action-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+}
+
+.action-card h3 {
+    color: var(--bordo);
+}
+
+/* --- TABLA DE DOCENTES --- */
+.docentes-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: var(--blanco);
+    box-shadow: 0 0 10px rgba(0,0,0,0.05);
+    border-radius: 8px;
+    overflow: hidden;
+    margin-top: 20px;
+>>>>>>> b0f9e33904dc59c6f8288b15044251410de9a5d6
 }
 
 .docentes-table th, 
@@ -122,6 +215,7 @@
 }
 
 .docentes-table th {
+<<<<<<< HEAD
     background-color: #3498db;
     color: white;
     font-weight: 500;
@@ -148,11 +242,24 @@
     background-color: #2ecc71;
 }
 
+=======
+    background-color: var(--bordo);
+    color: var(--blanco);
+    font-weight: 600;
+}
+
+.docentes-table tr:hover {
+    background-color: var(--gris-claro);
+}
+
+/* --- BOTONES DE ACCIÓN --- */
+>>>>>>> b0f9e33904dc59c6f8288b15044251410de9a5d6
 .actions {
     display: flex;
     gap: 10px;
 }
 
+<<<<<<< HEAD
 .btn-edit {
     padding: 5px 10px;
     background-color: #f39c12;
@@ -189,6 +296,64 @@
     background-color: white;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0,0,0,0.05);
+=======
+.btn-edit,
+.btn-delete {
+    padding: 6px 12px;
+    color: var(--blanco);
+    border: none;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.btn-edit {
+    background-color: #e67e22;
+}
+.btn-edit:hover {
+    background-color: #f39c12;
+    transform: scale(1.05);
+}
+
+.btn-delete {
+    background-color: #c0392b;
+}
+.btn-delete:hover {
+    background-color: #e74c3c;
+    transform: scale(1.05);
+}
+
+.btn-add {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: var(--dorado);
+    color: var(--texto);
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    transition: background-color 0.3s ease, transform 0.2s;
+}
+.btn-add:hover {
+    background-color: gold;
+    transform: scale(1.03);
+}
+
+/* --- FORMULARIO DOCENTE --- */
+.docente-form {
+    max-width: 600px;
+    margin: 30px auto;
+    padding: 30px;
+    background-color: var(--blanco);
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    animation: fadeIn 0.5s ease-in-out;
+>>>>>>> b0f9e33904dc59c6f8288b15044251410de9a5d6
 }
 
 .docente-form .form-group {
@@ -198,13 +363,22 @@
 .docente-form label {
     display: block;
     margin-bottom: 8px;
+<<<<<<< HEAD
     font-weight: 500;
+=======
+    font-weight: 600;
+    color: var(--texto);
+>>>>>>> b0f9e33904dc59c6f8288b15044251410de9a5d6
 }
 
 .docente-form input {
     width: 100%;
     padding: 12px;
+<<<<<<< HEAD
     border: 1px solid #ddd;
+=======
+    border: 1px solid #ccc;
+>>>>>>> b0f9e33904dc59c6f8288b15044251410de9a5d6
     border-radius: 4px;
     font-size: 16px;
 }
@@ -212,6 +386,7 @@
 .docente-form .btn-submit {
     width: 100%;
     padding: 12px;
+<<<<<<< HEAD
     background-color: #3498db;
     color: white;
     border: none;
@@ -234,3 +409,73 @@
     color: white;
     margin-top: 40px;
 }
+=======
+    background-color: var(--bordo);
+    color: var(--blanco);
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.docente-form .btn-submit:hover {
+    background-color: #a00000;
+}
+
+/* --- FOOTER --- */
+.admin-footer {
+    text-align: center;
+    padding: 20px;
+    background-color: var(--bordo);
+    color: var(--blanco);
+    margin-top: 40px;
+}
+
+/* --- ANIMACIONES --- */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+ /**/
+ /* --- RESPONSIVO --- */
+@media (max-width: 768px) {
+    .admin-header h1 {
+        font-size: 1.5rem;
+    }
+
+    .nav-links a {
+        display: block;
+        margin: 10px 0;
+    }
+
+    .stats-grid,
+    .actions-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .docente-form {
+        padding: 20px;
+    }
+
+    .docente-form input {
+        font-size: 14px;
+    }
+
+    .btn-edit,
+    .btn-delete {
+        font-size: 0.8rem;
+        padding: 5px 8px;
+    }
+
+    .btn-add {
+        width: 100%;
+        text-align: center;
+    }
+
+    .actions {
+        flex-direction: column;
+    }
+}
+>>>>>>> b0f9e33904dc59c6f8288b15044251410de9a5d6
