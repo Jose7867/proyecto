@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Administración</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+</head>
+<body>
+    <header class="admin-header">
+        <div class="container">
+            <h1>Panel de Administración</h1>
+            <nav>
+                <a href="{{ url_for('gestion_docentes') }}">Gestión de Docentes</a>
+                <a href="{{ url_for('logout') }}">Cerrar Sesión</a>
+            </nav>
+        </div>
+    </header>
+    
+    <main class="container">
+        <section class="admin-stats">
+            <h2>Resumen del Sistema</h2>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h3>{{ total_docentes }}</h3>
+                    <p>Docentes Registrados</p>
+                </div>
+                
+                <div class="stat-card">
+                    <h3>{{ total_cursos }}</h3>
+                    <p>Cursos Registrados</p>
+                </div>
+                
+                <div class="stat-card">
+                    <h3>0</h3>
+                    <p>Archivos Subidos</p>
+                </div>
+            </div>
+        </section>
+        
+        <section class="quick-actions">
+            <h2>Acciones Rápidas</h2>
+            <div class="actions-grid">
+                <a href="{{ url_for('agregar_docente') }}" class="action-card">
+                    <h3>Agregar Docente</h3>
+                    <p>Registrar nuevo docente en el sistema</p>
+                </a>
+                
+                <a href="#" class="action-card">
+                    <h3>Asignar Cursos</h3>
+                    <p>Asignar cursos a docentes</p>
+                </a>
+                
+                <a href="#" class="action-card">
+                    <h3>Generar Reportes</h3>
+                    <p>Generar reportes del sistema</p>
+                </a>
+            </div>
+        </section>
+    </main>
+    
+    <footer class="admin-footer">
+        <div class="container">
+            <p>Sistema Portafolio Docente UNSAC &copy; 2023</p>
+        </div>
+    </footer>
+</body>
+</html>

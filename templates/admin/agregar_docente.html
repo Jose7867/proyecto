@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agregar Docente</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+</head>
+<body>
+    <header class="admin-header">
+        <div class="container">
+            <h1>Agregar Nuevo Docente</h1>
+            <nav>
+                <a href="{{ url_for('gestion_docentes') }}">Volver</a>
+                <a href="{{ url_for('logout') }}">Cerrar Sesión</a>
+            </nav>
+        </div>
+    </header>
+    
+    <main class="container">
+        <form method="POST" class="docente-form">
+            <div class="form-group">
+                <label for="nombre">Nombre Completo:</label>
+                <input type="text" id="nombre" name="nombre" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="email">Correo Institucional:</label>
+                <input type="email" id="email" name="email" required placeholder="usuario@unsaac.edu.pe">
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Contraseña Temporal:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            
+            <button type="submit" class="btn-submit">Guardar Docente</button>
+        </form>
+    </main>
+    
+    <footer class="admin-footer">
+        <div class="container">
+            <p>Sistema Portafolio Docente UNSAC &copy; 2023</p>
+        </div>
+    </footer>
+</body>
+</html>

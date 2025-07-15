@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portafolio - {{ docente.nombre }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Portafolio Docente - {{ docente.nombre }}</h1>
+            <nav>
+                <a href="{{ url_for('logout') }}" class="logout-btn">Cerrar Sesión</a>
+            </nav>
+        </div>
+    </header>
+    
+    <main class="container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="flash-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        
+        <section class="seccion-perfil">
+            <h2>Datos Personales</h2>
+            
+            <div class="archivos-section">
+                <h3>Documentos</h3>
+                
+                <form action="{{ url_for('subir_archivo', docente_id=docente.id) }}" method="POST" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label>CV (PDF):</label>
+                        {% set cv = archivos|selectattr('tipo', 'equalto', 'cv')|first %}
+                        {% if cv %}
+                            <p>Archivo actual: <a href="{{ url_for('static', filename='uploads/' + cv.ruta_archivo) }}" target="_blank">Ver CV</a></p>
+                        {% endif %}
+                        <input type="file" name="archivo" accept=".pdf" required>
+                        <input type="hidden" name="tipo_archivo" value="cv">
+                    </div>
+                    <button type="submit" class="btn-submit">Subir CV</button>
+                </form>
+                
+                <form action="{{ url_for('subir_archivo', docente_id=docente.id) }}" method="POST" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label>Hoja de Vida (PDF):</label>
+                        {% set hv = archivos|selectattr('tipo', 'equalto', 'hoja_vida')|first %}
+                        {% if hv %}
+                            <p>Archivo actual: <a href="{{ url_for('static', filename='uploads/' + hv.ruta_archivo) }}" target="_blank">Ver Hoja de Vida</a></p>
+                        {% endif %}
+                        <input type="file" name="archivo" accept=".pdf" required>
+                        <input type="hidden" name="tipo_archivo" value="hoja_vida">
+                    </div>
+                    <button type="submit" class="btn-submit">Subir Hoja de Vida</button>
+                </form>
+                
+                <form action="{{ url_for('subir_archivo', docente_id=docente.id) }}" method="POST" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label>Filosofía Docente (PDF):</label>
+                        {% set filo = archivos|selectattr('tipo', 'equalto', 'filosofia')|first %}
+                        {% if filo %}
+                            <p>Archivo actual: <a href="{{ url_for('static', filename='uploads/' + filo.ruta_archivo) }}" target="_blank">Ver Filosofía</a></p>
+                        {% endif %}
+                        <input type="file" name="archivo" accept=".pdf" required>
+                        <input type="hidden" name="tipo_archivo" value="filosofia">
+                    </div>
+                    <button type="submit" class="btn-submit">Subir Filosofía</button>
+                </form>
+            </div>
+        </section>
+        
+        <section class="seccion-cursos">
+            <h2>Mis Cursos</h2>
+            <div class="cursos-grid">
+                {% for curso in cursos %}
+                <div class="curso-card">
+                    <h3>{{ curso.nombre }}</h3>
+                    <a href="{{ url_for('curso', docente_id=docente.id, curso_id=curso.id) }}" class="btn-curso">Gestionar Curso</a>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <div class="container">
+            <p>Universidad Nacional San Antonio Abad del Cusco</p>
+        </div>
+    </footer>
+</body>
+</html>

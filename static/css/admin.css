@@ -1,0 +1,236 @@
+/* Admin-specific styles */
+.admin-header {
+    background-color: #2c3e50;
+    color: white;
+    padding: 15px 0;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.admin-header h1 {
+    margin-bottom: 10px;
+}
+
+.admin-header nav {
+    background-color: #34495e;
+    padding: 10px 0;
+}
+
+.admin-header nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 15px;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.admin-header nav a:hover {
+    color: #3498db;
+}
+
+.admin-stats {
+    margin-bottom: 40px;
+}
+
+.admin-stats h2 {
+    margin-bottom: 20px;
+    color: #2c3e50;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.stat-card {
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.05);
+    text-align: center;
+}
+
+.stat-card h3 {
+    font-size: 2.5rem;
+    color: #3498db;
+    margin-bottom: 10px;
+}
+
+.stat-card p {
+    color: #7f8c8d;
+    font-weight: 500;
+}
+
+.quick-actions {
+    margin-bottom: 40px;
+}
+
+.quick-actions h2 {
+    margin-bottom: 20px;
+    color: #2c3e50;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.actions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.action-card {
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.05);
+    text-decoration: none;
+    color: #333;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.action-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.action-card h3 {
+    color: #3498db;
+    margin-bottom: 10px;
+}
+
+.action-card p {
+    color: #7f8c8d;
+}
+
+/* Tablas */
+.docentes-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0,0,0,0.05);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.docentes-table th, 
+.docentes-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+
+.docentes-table th {
+    background-color: #3498db;
+    color: white;
+    font-weight: 500;
+}
+
+.docentes-table tr:hover {
+    background-color: #f5f5f5;
+}
+
+/* Botones de acción */
+.btn-add {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #27ae60;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: 500;
+    margin-bottom: 20px;
+    transition: background-color 0.3s;
+}
+
+.btn-add:hover {
+    background-color: #2ecc71;
+}
+
+.actions {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-edit {
+    padding: 5px 10px;
+    background-color: #f39c12;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    transition: background-color 0.3s;
+}
+
+.btn-edit:hover {
+    background-color: #f1c40f;
+}
+
+.btn-delete {
+    padding: 5px 10px;
+    background-color: #e74c3c;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    transition: background-color 0.3s;
+}
+
+.btn-delete:hover {
+    background-color: #c0392b;
+}
+
+/* Formularios */
+.docente-form {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 30px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.05);
+}
+
+.docente-form .form-group {
+    margin-bottom: 20px;
+}
+
+.docente-form label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.docente-form input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.docente-form .btn-submit {
+    width: 100%;
+    padding: 12px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.docente-form .btn-submit:hover {
+    background-color: #2980b9;
+}
+
+/* Footer admin */
+.admin-footer {
+    text-align: center;
+    padding: 20px 0;
+    background-color: #2c3e50;
+    color: white;
+    margin-top: 40px;
+}
