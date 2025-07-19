@@ -3,6 +3,10 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
 import sqlite3
 import os
+from reportlab.pdfgen import canvas
+from io import BytesIO
+import pandas as pd
+from flask import send_file  # Añade esto junto a las otras importaciones
 
 app = Flask(__name__)
 app.secret_key = 'tu_clave_secreta_aqui'
@@ -173,6 +177,124 @@ def agregar_docente():
     
     return render_template('admin/agregar_docente.html')
 
+#asignar cursos
+@app.route('/admin/asignar_cursos', methods=['GET', 'POST'])
+def asignar_cursos():
+    if 'user_type' not in session or session['user_type'] != 'admin':
+        return redirect(url_for('login'))
+    
+    conn = get_db_connection()
+    
+    if request.method == 'POST':
+        docente_id = request.form['docente_id']
+        curso_id = request.form['curso_id']
+        
+        try:
+            conn.execute('INSERT OR IGNORE INTO docente_curso (docente_id, curso_id) VALUES (?, ?)', 
+                         (docente_id, curso_id))
+            conn.commit()
+            flash('Curso asignado correctamente', 'success')
+        except sqlite3.IntegrityError:
+            flash('Esta asignación ya existe', 'error')
+        
+        return redirect(url_for('asignar_cursos'))
+    
+    # Obtener docentes y cursos para el formulario
+    docentes = conn.execute('SELECT id, nombre FROM docentes').fetchall()
+    cursos = conn.execute('SELECT id, nombre FROM cursos').fetchall()
+    conn.close()
+    
+    return render_template('admin/asignar_cursos.html', docentes=docentes, cursos=cursos)
+
+#generar reportes
+@app.route('/admin/generar_reportes', methods=['GET', 'POST'])
+def generar_reportes():
+    if 'user_type' not in session or session['user_type'] != 'admin':
+        return redirect(url_for('login'))
+
+    if request.method == 'POST':
+        report_type = request.form.get('report_type')
+        conn = get_db_connection()
+        
+        try:
+            if report_type == 'docentes':
+                data = conn.execute('SELECT id, nombre, email FROM docentes').fetchall()
+                filename = 'reporte_docentes'
+                columns = ['ID', 'Nombre', 'Email']
+                
+            elif report_type == 'cursos':
+                data = conn.execute('''
+                    SELECT c.nombre AS curso, d.nombre AS docente 
+                    FROM cursos c
+                    JOIN docente_curso dc ON c.id = dc.curso_id
+                    JOIN docentes d ON d.id = dc.docente_id
+                ''').fetchall()
+                filename = 'reporte_cursos'
+                columns = ['Curso', 'Docente']
+                
+            elif report_type == 'archivos':
+                data = conn.execute('''
+                    SELECT d.nombre AS docente, a.tipo, a.ruta_archivo
+                    FROM archivos_docentes a
+                    JOIN docentes d ON d.id = a.docente_id
+                ''').fetchall()
+                filename = 'reporte_archivos'
+                columns = ['Docente', 'Tipo', 'Archivo']
+            
+            # Convertir a lista de diccionarios
+            data = [dict(row) for row in data]
+            
+            if request.form.get('format') == 'pdf':
+                from reportlab.lib.pagesizes import letter
+                from reportlab.platypus import SimpleDocTemplate, Table, TableStyle
+                
+                buffer = BytesIO()
+                pdf = SimpleDocTemplate(buffer, pagesize=letter)
+                
+                # Preparar datos para la tabla
+                table_data = [columns] + [[str(item[col]) for col in item.keys()] for item in data]
+                
+                # Crear tabla
+                table = Table(table_data)
+                table.setStyle(TableStyle([
+                    ('BACKGROUND', (0, 0), (-1, 0), '#800000'),
+                    ('TEXTCOLOR', (0, 0), (-1, 0), (1, 1, 1)),
+                    ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
+                    ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+                    ('FONTSIZE', (0, 0), (-1, 0), 12),
+                    ('BOTTOMPADDING', (0, 0), (-1, 0), 12),
+                    ('BACKGROUND', (0, 1), (-1, -1), '#f5f5f5'),
+                    ('GRID', (0, 0), (-1, -1), 1, '#cccccc')
+                ]))
+                
+                pdf.build([table])
+                buffer.seek(0)
+                return send_file(
+                    buffer,
+                    as_attachment=True,
+                    download_name=f'{filename}.pdf',
+                    mimetype='application/pdf'
+                )
+                
+            else:  # Excel
+                import pandas as pd
+                
+                output = BytesIO()
+                df = pd.DataFrame(data)
+                df.to_excel(output, index=False, engine='openpyxl')
+                output.seek(0)
+                
+                return send_file(
+                    output,
+                    as_attachment=True,
+                    download_name=f'{filename}.xlsx',
+                    mimetype='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+                )
+                
+        finally:
+            conn.close()
+
+    return render_template('admin/generar_reportes.html')
 # Logout
 @app.route('/logout')
 def logout():

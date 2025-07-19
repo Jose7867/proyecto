@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Generar Reportes</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/admin.css') }}"
+    />
+  </head>
+  <body>
+    <header class="admin-header">
+      <div class="container">
+        <h1>Generar Reportes</h1>
+        <nav>
+          <a href="{{ url_for('admin_dashboard') }}">Dashboard</a>
+          <a href="{{ url_for('logout') }}">Cerrar Sesión</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container">
+      <form method="POST" class="docente-form">
+        <div class="form-group">
+          <label>Tipo de Reporte:</label>
+          <select name="report_type" required>
+            <option value="docentes">Lista de Docentes</option>
+            <option value="cursos">Cursos por Docente</option>
+            <option value="archivos">Archivos Subidos</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Formato:</label>
+          <div style="display: flex; gap: 15px">
+            <label
+              ><input type="radio" name="format" value="pdf" checked />
+              PDF</label
+            >
+            <label
+              ><input type="radio" name="format" value="excel" /> Excel</label
+            >
+          </div>
+        </div>
+
+        <button type="submit" class="btn-submit">Generar Reporte</button>
+      </form>
+    </main>
+
+    <footer class="admin-footer">
+      <div class="container">
+        <p>Sistema Portafolio Docente UNSAAC &copy; 2025</p>
+      </div>
+    </footer>
+  </body>
+</html>

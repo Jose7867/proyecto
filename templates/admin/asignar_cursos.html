@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Asignar Cursos</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/admin.css') }}"
+    />
+  </head>
+  <body>
+    <header class="admin-header">
+      <div class="container">
+        <h1>Asignar Cursos a Docentes</h1>
+        <nav>
+          <a href="{{ url_for('admin_dashboard') }}">Dashboard</a>
+          <a href="{{ url_for('logout') }}">Cerrar Sesión</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container">
+      {% with messages = get_flashed_messages(with_categories=true) %} {% if
+      messages %} {% for category, message in messages %}
+      <div class="alert alert-{{ category }}">{{ message }}</div>
+      {% endfor %} {% endif %} {% endwith %}
+
+      <form method="POST" class="docente-form">
+        <div class="form-group">
+          <label for="docente_id">Docente:</label>
+          <select id="docente_id" name="docente_id" required>
+            {% for docente in docentes %}
+            <option value="{{ docente.id }}">{{ docente.nombre }}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="curso_id">Curso:</label>
+          <select id="curso_id" name="curso_id" required>
+            {% for curso in cursos %}
+            <option value="{{ curso.id }}">{{ curso.nombre }}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <button type="submit" class="btn-submit">Asignar Curso</button>
+      </form>
+    </main>
+
+    <footer class="admin-footer">
+      <div class="container">
+        <p>Sistema Portafolio Docente UNSAAC &copy; 2025</p>
+      </div>
+    </footer>
+  </body>
+</html>
