@@ -295,6 +295,90 @@ def generar_reportes():
             conn.close()
 
     return render_template('admin/generar_reportes.html')
+#crear curso
+@app.route('/admin/crear_curso', methods=['GET', 'POST'])
+def crear_curso():
+    if 'user_type' not in session or session['user_type'] != 'admin':
+        return redirect(url_for('login'))
+
+    if request.method == 'POST':
+        nombre_curso = request.form['nombre']
+        
+        conn = get_db_connection()
+        try:
+            conn.execute('INSERT INTO cursos (nombre) VALUES (?)', (nombre_curso,))
+            conn.commit()
+            flash('Curso creado exitosamente', 'success')
+        except sqlite3.IntegrityError:
+            flash('Este curso ya existe', 'error')
+        finally:
+            conn.close()
+        
+        return redirect(url_for('crear_curso'))
+
+    return render_template('admin/crear_curso.html')
+# Listar cursos (ya lo tienes)
+@app.route('/admin/cursos')
+def listar_cursos():
+    if 'user_type' not in session or session['user_type'] != 'admin':
+        return redirect(url_for('login'))
+
+    conn = get_db_connection()
+    cursos = conn.execute('SELECT * FROM cursos ORDER BY nombre').fetchall()
+    conn.close()
+    
+    return render_template('admin/listar_cursos.html', cursos=cursos)
+
+# Eliminar curso
+@app.route('/admin/eliminar_curso/<int:curso_id>', methods=['POST'])
+def eliminar_curso(curso_id):
+    if 'user_type' not in session or session['user_type'] != 'admin':
+        return redirect(url_for('login'))
+
+    conn = get_db_connection()
+    try:
+        # Verificar si el curso está asignado a docentes primero
+        asignaciones = conn.execute('SELECT COUNT(*) FROM docente_curso WHERE curso_id = ?', (curso_id,)).fetchone()[0]
+        
+        if asignaciones > 0:
+            flash('No se puede eliminar: el curso está asignado a docentes', 'error')
+        else:
+            conn.execute('DELETE FROM cursos WHERE id = ?', (curso_id,))
+            conn.commit()
+            flash('Curso eliminado correctamente', 'success')
+    finally:
+        conn.close()
+    
+    return redirect(url_for('listar_cursos'))
+
+# Editar curso
+@app.route('/admin/editar_curso/<int:curso_id>', methods=['GET', 'POST'])
+def editar_curso(curso_id):
+    if 'user_type' not in session or session['user_type'] != 'admin':
+        return redirect(url_for('login'))
+
+    conn = get_db_connection()
+    
+    if request.method == 'POST':
+        nuevo_nombre = request.form['nombre']
+        try:
+            conn.execute('UPDATE cursos SET nombre = ? WHERE id = ?', (nuevo_nombre, curso_id))
+            conn.commit()
+            flash('Curso actualizado correctamente', 'success')
+            return redirect(url_for('listar_cursos'))
+        except sqlite3.IntegrityError:
+            flash('Ya existe un curso con ese nombre', 'error')
+    
+    curso = conn.execute('SELECT * FROM cursos WHERE id = ?', (curso_id,)).fetchone()
+    conn.close()
+    
+    if not curso:
+        flash('Curso no encontrado', 'error')
+        return redirect(url_for('listar_cursos'))
+    
+    return render_template('admin/editar_curso.html', curso=curso)
+#Agrega esta ruta para mostrar todos los cursos
+
 # Logout
 @app.route('/logout')
 def logout():

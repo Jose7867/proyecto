@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Crear Curso</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/admin.css') }}"
+    />
+  </head>
+  <body>
+    <header class="admin-header">
+      <div class="container">
+        <h1>Crear Nuevo Curso</h1>
+        <nav>
+          <a href="{{ url_for('admin_dashboard') }}">Dashboard</a>
+          <a href="{{ url_for('logout') }}">Cerrar Sesión</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container">
+      {% with messages = get_flashed_messages(with_categories=true) %} {% if
+      messages %} {% for category, message in messages %}
+      <div class="alert alert-{{ category }}">{{ message }}</div>
+      {% endfor %} {% endif %} {% endwith %}
+
+      <form method="POST" class="docente-form">
+        <div class="form-group">
+          <label for="nombre">Nombre del Curso:</label>
+          <input
+            type="text"
+            id="nombre"
+            name="nombre"
+            required
+            placeholder="Ej: Algoritmos Paralelos"
+          />
+        </div>
+
+        <button type="submit" class="btn-submit">Guardar Curso</button>
+      </form>
+    </main>
+
+    <footer class="admin-footer">
+      <div class="container">
+        <p>Sistema Portafolio Docente UNSAAC &copy; 2025</p>
+      </div>
+    </footer>
+  </body>
+</html>
